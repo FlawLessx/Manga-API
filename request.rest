@@ -1,0 +1,2 @@
+// Get Hot Manga Update
+GET http://localhost:3000/manga/ajin/
