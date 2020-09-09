@@ -1,0 +1,32 @@
+{
+  "name": "manga-api",
+  "version": "1.0.0",
+  "description": "web scrapping ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlawLessx/Manga-API.git"
+  },
+  "author": "FlawLessx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlawLessx/Manga-API/issues"
+  },
+  "homepage": "https://github.com/FlawLessx/Manga-API#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "request": "^2.88.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "*.json"
+    ]
+  }
+}
