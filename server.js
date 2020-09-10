@@ -1,19 +1,15 @@
 const express = require('express');
 const app = express();
-const url = require('./constant/base_url');
-const { getHotMangaUpdate } = require('./util/scrape');
+const port = process.env.port || 3000;
+const bodyParser = require('body-parser');
 
-app.get('/manga/:endPoint', (req, res) => {
-    const mangaName = req.params.url;
-    const result = getHotMangaUpdate(url + 'manga/' + mangaName)
+//const manga = require('./router/manga');
 
-    res.json(result);
-})
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-app.use(function(req, res) {
-    res.status(404).send({url: req.originalUrl + ' not found'})
-});
+var routes = require('./api/routes/list_route');
+routes(app);
 
-//function paginatedResults
-
-app.listen(3000)
+app.listen(port)
+console.log('Listen on port: ' + port);

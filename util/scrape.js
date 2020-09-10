@@ -2,37 +2,6 @@ const request = require("request");
 const cheerio = require("cheerio");
 const express = require("express");
 
-function getHotMangaUpdate(url) {
-    return request(url, (error, response, html) => {
-        if (!error && response.statusCode == 200) {
-            let $ = cheerio.load(html);
-
-            const res = {};
-            //
-            // GET Hot Manga Update
-            //
-
-            $(".bsx").each((i, element) => {
-                const title = $(element).find("a").attr("title");
-                const mangaEndpoint = $(element).find("a").attr("href").split('/')[4] + '/';
-                const type = $(element).find("span").text();
-                const image = $(element).find("img").attr("src").split('?')[0];
-                const chapter = $(element).find(".epxs").text();
-                const rating = $(element).find("i").text();
-
-                res.title = title;
-                res.type = type;
-                res.mangaEndpoint = mangaEndpoint;
-                res.image = image;
-                res.chapter = chapter;
-                res.rating = rating;
-            });
-
-            return res;
-        }
-    });
-}
-
 /*
 request(homeUrl, (error, response, html) => {
     if (!error && response.statusCode == 200) {
