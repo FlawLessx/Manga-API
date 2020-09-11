@@ -51,11 +51,11 @@ exports.get_manga_detail = async (req, res) => {
         // Get Genre
         const genre = $(getMeta).eq(0).find('a').each((i, element) => {
             const genreName = $(element).text();
-            const genreEndpoint = $(element).attr('href').split('/')[4] + '/';
+            const genre_endpoint = $(element).attr('href').split('/')[4] + '/';
 
             genreList.push({
                 genreName,
-                genreEndpoint
+                genre_endpoint
             })
         });
 
@@ -63,12 +63,12 @@ exports.get_manga_detail = async (req, res) => {
         $('.bxcl').find('li').each((i, item) => {
             const meta = $(item).find('span');
             const chapterName = $(meta).find('a').eq(0).text();
-            const chapterEndpoint = $(meta).find('a').eq(0).attr('href').split('/')[3] + '/';
+            const chapter_endpoint = $(meta).find('a').eq(0).attr('href').split('/')[3] + '/';
             const chapterDownload = $(meta).find('.dload').attr('href');
 
             chapterList.push({
                 chapterName,
-                chapterEndpoint,
+                chapter_endpoint,
                 chapterDownload
             });
         })
@@ -94,7 +94,7 @@ exports.get_hot_manga_update = async (req, res) => {
 
         $(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
-            const mangaEndpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text();
@@ -102,7 +102,7 @@ exports.get_hot_manga_update = async (req, res) => {
 
             obj.push({
                 title,
-                mangaEndpoint,
+                manga_endpoint,
                 type,
                 image,
                 chapter,
