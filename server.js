@@ -3,8 +3,6 @@ const app = express();
 const port = process.env.port || 3000;
 const bodyParser = require('body-parser');
 
-//const manga = require('./router/manga');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 

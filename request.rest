@@ -3,3 +3,6 @@ GET http://localhost:3000/api/manga/detail/ajin/
 ###
 GET http://localhost:3000/
 ###
+GET http://localhost:3000/api/hot_manga_update/
+###
+GET http://localhost:3000/api/manga/chapter/blast-chapter-36/
