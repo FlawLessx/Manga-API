@@ -3,23 +3,31 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const request = require("request");
 
-request('https://komikindo.co/urban-god-chapter-134/', (error, response, html) => {
+request('https://komikindo.co/?s=one%20pie', (error, response, html) => {
     if (!error && response.statusCode == 200) {
         let $ = cheerio.load(html);
         
-        const imageList = [];
+        const obj = [];
 
-        $('#readerarea').find('img').each((i, item) => {
-            const indexImage = $(item).attr('data-tai');
-            const imageLink = $(item).attr('src');
+        $('.bs').find(".bsx").each((i, element) => {
+            const title = $(element).find("a").attr("title");
+            const mangaEndpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const type = $(element).find("span").text();
+            const image = $(element).find("img").attr("src").split('?')[0];
+            const chapter = $(element).find(".epxs").text();
+            const rating = $(element).find("i").text();
 
-            imageList.push({
-                indexImage,
-                imageLink
-            });
+            obj.push({
+                title,
+                mangaEndpoint,
+                type,
+                image,
+                chapter,
+                rating
+            })
         });
 
-        console.log(imageList);
+        console.log(obj);
     }
 }
 )
@@ -30,37 +38,6 @@ request(homeUrl, (error, response, html) => {
     if (!error && response.statusCode == 200) {
         let $ = cheerio.load(html);
 
-        //
-        // GET Manga Image(Reader)
-        //
-
-
-
-
-        //
-        // GET All Genre
-        //
-
-
-const listAllGenre = [];
-
-$('.genre').find('li').each((i, item) => {
-    const meta = $(item).find('a');
-    const genreTitle = $(meta).attr('title');
-    const genreSubtitle = $(meta).text();
-    const genreLink = $(meta).attr('href');
-
-    listAllGenre.push({
-        genreTitle,
-        genreSubtitle,
-        genreLink
-    });
-});
-
-
-        //
-        // GET Latest Update
-        //
 
 const latestUpdateList = [];
 
