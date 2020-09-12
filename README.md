@@ -25,6 +25,7 @@ Dokumentasi versi web:
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -37,6 +38,7 @@ Dokumentasi versi web:
     }
 ]
 ```
+
 </p>
 </details>
 
@@ -45,10 +47,11 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
 
 ### Manga Detail
 
-``` mangabuzz.glitch.me/api/manga/detail/:manga_endpoint ```
+```mangabuzz.glitch.me/api/manga/detail/:manga_endpoint ```
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -69,6 +72,7 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
     }
 ]
 ```
+
 </p>
 </details>
 
@@ -81,6 +85,7 @@ https://mangabuzz.glitch.me/api/manga/detail/ajin/
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -89,11 +94,12 @@ https://mangabuzz.glitch.me/api/manga/detail/ajin/
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332/
+https://mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332/
 
 ### All Genre
 
@@ -101,6 +107,7 @@ mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332/
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -109,11 +116,12 @@ mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332/
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/genre/all
+https://mangabuzz.glitch.me/api/genre/all
 
 ### Genre (Belum support pagination)
 
@@ -121,6 +129,7 @@ mangabuzz.glitch.me/api/genre/all
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -129,11 +138,12 @@ mangabuzz.glitch.me/api/genre/all
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/genre/action/
+https://mangabuzz.glitch.me/api/genre/action/
 
 ### Latest Update
 
@@ -141,6 +151,7 @@ mangabuzz.glitch.me/api/genre/action/
 
 <details><summary> Example Response </summary>
 <p>
+
 ```
 [
     {
@@ -155,11 +166,12 @@ mangabuzz.glitch.me/api/genre/action/
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/latest_update/2
+https://mangabuzz.glitch.me/api/latest_update/2
 
 ### Search Manga
 
@@ -169,6 +181,7 @@ Tambahkan ```?query=nama manga``` setelah ```api/search/```
 
 <details><summary>Example Response</summary>
 <p>
+
 ```
 [
     {
@@ -181,11 +194,12 @@ Tambahkan ```?query=nama manga``` setelah ```api/search/```
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/search/?query=one%20piece
+https://mangabuzz.glitch.me/api/search/?query=one%20piece
 
 ### List All Manga
 
@@ -193,6 +207,7 @@ mangabuzz.glitch.me/api/search/?query=one%20piece
 
 <details><summary>Example Response</summary>
 <p>
+
 ```
 [
     {
@@ -205,11 +220,12 @@ mangabuzz.glitch.me/api/search/?query=one%20piece
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/manga/1
+https://mangabuzz.glitch.me/api/manga/1
 
 ### List All Manhwa
 
@@ -217,6 +233,7 @@ mangabuzz.glitch.me/api/manga/1
 
 <details><summary>Example Response</summary>
 <p>
+
 ```
 [
     {
@@ -229,11 +246,12 @@ mangabuzz.glitch.me/api/manga/1
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/manhwa/2
+https://mangabuzz.glitch.me/api/manhwa/2
 
 ### List All Manhua
 
@@ -241,6 +259,7 @@ mangabuzz.glitch.me/api/manhwa/2
 
 <details><summary>Example Response</summary>
 <p>
+
 ```
 [
     {
@@ -253,8 +272,9 @@ mangabuzz.glitch.me/api/manhwa/2
     }
 ]
 ```
+
 </p>
 </details>
 
 Live Response:
-mangabuzz.glitch.me/api/manhua/1
+https://mangabuzz.glitch.me/api/manhua/1
