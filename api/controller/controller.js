@@ -3,12 +3,20 @@
 const redis = require("redis");
 const { json } = require('express');
 const client = redis.createClient();
-const services = require("../services/services");
+const services = require("../services/services");// Require 'bluebird' in your package.json file, and run npm install.
+const fs = require('fs');
+const marked = require('marked');
 
 exports.not_found = (req, res) => {
     res.status(404).json({
         message: "API path not found, please read documentation again"
     })
+}
+
+exports.get_documentation = (req, res) => {
+    var path = 'README.md';
+    var file = fs.readFileSync(path, 'utf8');
+    res.send(marked(file.toString()));
 }
 
 exports.api_cache = (req, res) => {
@@ -73,8 +81,8 @@ exports.get_all_genre_cache = (req, res) => {
 
 exports.get_genre_cache = (req, res) => {
     const genre_endpoint = req.params.genre_endpoint;
-
-    client.get(genre_endpoint, (err, result) => {
+    const page_number = req.params.page_number;
+    client.get(genre_endpoint + page_number, (err, result) => {
         if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
@@ -88,11 +96,11 @@ exports.get_latest_update_cache = (req, res) => {
     const page_number = req.params.page_number;
 
     client.get('/api/latest_update/' + page_number, (err, result) => {
-        if(result){
+        if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
         }
-        else 
+        else
             services.get_latest_update(req, res)
     });
 }
@@ -101,11 +109,11 @@ exports.get_search_manga_cache = (req, res) => {
     const query = req.query.query;
 
     client.get(query, (err, result) => {
-        if(result){
+        if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
         }
-        else 
+        else
             services.get_search_manga(req, res);
     });
 }
@@ -114,11 +122,11 @@ exports.get_all_manga_cache = (req, res) => {
     const page_number = req.params.page_number;
 
     client.get('manga/' + page_number, (err, result) => {
-        if(result){
+        if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
         }
-        else 
+        else
             services.get_all_manga(req, res);
     });
 }
@@ -127,11 +135,11 @@ exports.get_all_manhwa_cache = (req, res) => {
     const page_number = req.params.page_number;
 
     client.get('manhwa/' + page_number, (err, result) => {
-        if(result){
+        if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
         }
-        else 
+        else
             services.get_all_manhwa(req, res);
     });
 }
@@ -140,11 +148,11 @@ exports.get_all_manhua_cache = (req, res) => {
     const page_number = req.params.page_number;
 
     client.get('manhua/' + page_number, (err, result) => {
-        if(result){
+        if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
         }
-        else 
+        else
             services.get_all_manhua(req, res);
     });
 }

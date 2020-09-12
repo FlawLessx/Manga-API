@@ -192,14 +192,14 @@ exports.get_latest_update = async (req, res) => {
 
             const title = $(item).find('.imgu').find('a').attr('title');
             const manga_endpoint = $(item).find('.imgu').find('a')
-                                    .attr('href').split('/')[4] + '/';
+                .attr('href').split('/')[4] + '/';
             const image = $(item).find('.imgu').find('img').attr('src').split('?')[0];
             const hotTag = $(item).find('.imgu').find('.hot').text();
             const newTag = $(item).find('.new').find('.new').text();
 
             $(item).find('ul').find('li').each((i, element) => {
                 const chapter_endpoint = $(element).find('a').attr('href')
-                                        .split('/')[3] + '/';
+                    .split('/')[3] + '/';
                 const chapterName = $(element).find('a').text();
                 const updatedOn = $(element).find('span').text();
 
@@ -232,11 +232,14 @@ exports.get_latest_update = async (req, res) => {
 
 exports.get_genre = async (req, res) => {
     const genre_endpoint = req.params.genre_endpoint;
+    const page_number = req.params.page_number;
 
     try {
         const obj = [];
-        const response = await axios.get(baseUrl + 'genres/' + genre_endpoint);
+        var url = page_number == '1' ? baseUrl + 'genres/' + genre_endpoint : baseUrl + 'genres/' + genre_endpoint + 'page/' + page_number;
+        const response = await axios.get(url);
         let $ = cheerio.load(response.data);
+        obj.test = baseUrl + 'genres/' + genre_endpoint + 'page/' + page_number;
 
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
@@ -256,7 +259,7 @@ exports.get_genre = async (req, res) => {
             })
         });
 
-        client.setex(genre_endpoint, 3600, JSON.stringify(obj));
+        client.setex(genre_endpoint + page_number, 3600, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
