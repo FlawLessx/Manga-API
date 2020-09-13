@@ -123,9 +123,9 @@ https://mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332
 Live Response:
 https://mangabuzz.glitch.me/api/genre/all
 
-### Genre (Belum support pagination)
+### Genre
 
-```mangabuzz.glitch.me/api/genre/:genre_endpoint```
+```mangabuzz.glitch.me/api/genre/:genre_endpoint/:page_number```
 
 <details><summary> Example Response </summary>
 <p>
@@ -133,8 +133,12 @@ https://mangabuzz.glitch.me/api/genre/all
 ```
 [
     {
-        "genreTitle":"View all series in Action","genreSubtitle":"Action",
-        "genre_endpoint":"action/"
+        "title":"One Piece",
+        "manga_endpoint":"one-piece/",
+        "type":"Manga",
+        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2018/10/cover-one-piece.jpg",
+        "chapter":"Ch.990.5",
+        "rating":"9.01"
     }
 ]
 ```
@@ -143,7 +147,7 @@ https://mangabuzz.glitch.me/api/genre/all
 </details>
 
 Live Response:
-https://mangabuzz.glitch.me/api/genre/action/
+https://mangabuzz.glitch.me/api/genre/action/2
 
 ### Latest Update
 

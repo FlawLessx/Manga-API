@@ -236,10 +236,9 @@ exports.get_genre = async (req, res) => {
 
     try {
         const obj = [];
-        var url = page_number == '1' ? baseUrl + 'genres/' + genre_endpoint : baseUrl + 'genres/' + genre_endpoint + 'page/' + page_number;
+        var url = baseUrl + 'genres/' + genre_endpoint + '/' + 'page/' + page_number;
         const response = await axios.get(url);
         let $ = cheerio.load(response.data);
-        obj.test = baseUrl + 'genres/' + genre_endpoint + 'page/' + page_number;
 
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
@@ -264,7 +263,7 @@ exports.get_genre = async (req, res) => {
 
     } catch (e) {
         res.status(404).json({
-            error_message: e.message
+            error_message: e.message,
         });
     }
 }
