@@ -158,7 +158,7 @@ exports.get_all_manhua_cache = (req, res) => {
 }
 
 exports.get_best_series_cache = (req, res) => {
-    client.get('-', (err, result) => {
+    client.get('best-series', (err, result) => {
         if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
