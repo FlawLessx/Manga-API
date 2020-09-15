@@ -5,6 +5,7 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const redis = require("redis");
 const client = redis.createClient();
+const jsonFile = require('jsonfile');
 
 exports.api = (req, res) => {
     try {
@@ -404,6 +405,31 @@ exports.get_all_manhua = async (req, res) => {
 
         client.setex('manhua/' + page_number, 3600, JSON.stringify(obj));
         res.status(200).json(obj);
+
+    } catch (e) {
+        res.status(404).json({
+            error_message: e.message
+        });
+    }
+}
+
+exports.get_best_series = async (req, res) => {
+    try {
+        const jsonfile = require('jsonfile');
+        const file = 'constant/best_series.json';
+        var result;
+        
+        jsonfile.readFile(file, function (err, obj) {
+            if (err) {
+                res.status(404).json({
+                    error_message: err.message
+                });
+            }
+            client.setex('best-series', 3600, JSON.stringify(obj));
+            res.status(200).json(obj);
+        })
+
+
 
     } catch (e) {
         res.status(404).json({

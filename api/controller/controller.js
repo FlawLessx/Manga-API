@@ -156,3 +156,14 @@ exports.get_all_manhua_cache = (req, res) => {
             services.get_all_manhua(req, res);
     });
 }
+
+exports.get_best_series_cache = (req, res) => {
+    client.get('-', (err, result) => {
+        if (result) {
+            const parseResult = JSON.parse(result);
+            res.send(parseResult);
+        }
+        else
+            services.get_best_series(req, res);
+    });
+}

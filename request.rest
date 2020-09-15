@@ -22,3 +22,5 @@ GET http://localhost:3000/api/manga/2
 GET http://localhost:3000/api/manhwa/1
 ###
 GET http://localhost:3000/api/manhua/1
+###
+GET http://localhost:3000/api/best_series
