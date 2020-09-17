@@ -38,6 +38,7 @@ exports.get_manga_detail = async (req, res) => {
         const getMeta = $('.spe').find('span');
 
         obj.title = $('.infox').find('h1').text();
+        obj.mangaEndpoint = manga_endpoint + '/';
         obj.image = $('.thumb').find('img').attr('src').split('?')[0];
         obj.status = $(getMeta).eq(1).text().split(":").pop().trim();
         obj.released = $(getMeta).eq(2).text().split(":").pop().trim();

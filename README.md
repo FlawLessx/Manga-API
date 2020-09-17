@@ -56,6 +56,7 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
 [
     {
         "title":"Ajin",
+        "mangaEndpoint": "ajin/",
         "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2017/08/Ajin.jpg",
         "status":"Ongoing",
         "released":"2012",
