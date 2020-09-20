@@ -139,7 +139,7 @@ exports.get_chapter = async (req, res) => {
             });
         });
 
-        client.setex(chapter_endpoint, 3600, JSON.stringify(imageList));
+        client.setex(chapter_endpoint, 6000, JSON.stringify(imageList));
         res.status(200).json(imageList);
 
     } catch (e) {
@@ -169,7 +169,7 @@ exports.get_all_genre = async (req, res) => {
             });
         });
 
-        client.setex('/api/genre/all', 3600, JSON.stringify(listAllGenre))
+        client.setex('/api/genre/all', 6000, JSON.stringify(listAllGenre))
         res.status(200).json(listAllGenre);
 
     } catch (e) {
@@ -185,9 +185,18 @@ exports.get_latest_update = async (req, res) => {
         const url = baseUrl + '?page=' + page_number;
         const responses = await axios.get(url);
         let $ = cheerio.load(responses.data);
-
+        const obj = {};
         const latestUpdateList = [];
 
+        // Find previous & next page
+        const convertedPageNumber = parseInt(page_number);
+
+        const pageMeta = $('.hpage');
+        obj.previousPage = $(pageMeta).find('.l') != "" ? (convertedPageNumber - 1) : 0
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.r') != "" ? (convertedPageNumber + 1) : 0
+
+        // Find latest update 
         $('.utao').each((i, element) => {
             const item = $(element).find('.uta');
             const listNewChapter = [];
@@ -222,8 +231,10 @@ exports.get_latest_update = async (req, res) => {
             });
         })
 
-        client.setex('/api/latest_update/' + page_number, 300, JSON.stringify(latestUpdateList));
-        res.status(200).json(latestUpdateList);
+        obj.latestUpdateList = latestUpdateList;
+
+        client.setex('/api/latest_update/' + page_number, 300, JSON.stringify(obj));
+        res.status(200).json(obj);
 
     } catch (e) {
         res.status(404).json({
@@ -237,20 +248,31 @@ exports.get_genre = async (req, res) => {
     const page_number = req.params.page_number;
 
     try {
-        const obj = [];
+        const obj = {};
+        const result = [];
         var url = baseUrl + 'genres/' + genre_endpoint + '/' + 'page/' + page_number;
         const response = await axios.get(url);
         let $ = cheerio.load(response.data);
 
+        // Find pagination info
+        const convertedPageNumber = parseInt(page_number);
+        const pageMeta = $('.pagination');
+        obj.previousPage = $(pageMeta).find('.prev') != ""
+            ? (convertedPageNumber - 1) : 0;
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.next') != ""
+            ? (convertedPageNumber + 1) : 0;
+
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
-            const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const manga_endpoint = $(element).find("a")
+                .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text();
             const rating = $(element).find("i").text();
 
-            obj.push({
+            result.push({
                 title,
                 manga_endpoint,
                 type,
@@ -259,8 +281,9 @@ exports.get_genre = async (req, res) => {
                 rating
             })
         });
+        obj.result = result;
 
-        client.setex(genre_endpoint + page_number, 3600, JSON.stringify(obj));
+        client.setex(genre_endpoint + page_number, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -278,6 +301,15 @@ exports.get_search_manga = async (req, res) => {
         const response = await axios.get(baseUrl + '?s=' + query);
         let $ = cheerio.load(response.data);
 
+        // Find pagination info
+        const convertedPageNumber = parseInt(page_number);
+        const pageMeta = $('.pagination');
+        obj.previousPage = $(pageMeta).find('.prev') != ""
+            ? (convertedPageNumber - 1) : 0;
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.next') != ""
+            ? (convertedPageNumber + 1) : 0;
+
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
@@ -296,7 +328,7 @@ exports.get_search_manga = async (req, res) => {
             })
         });
 
-        client.setex(query, 3600, JSON.stringify(obj));
+        client.setex(query, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -310,19 +342,29 @@ exports.get_all_manga = async (req, res) => {
     const page_number = req.params.page_number;
 
     try {
-        const obj = [];
+        const obj = {};
+        const result = [];
         const response = await axios.get(baseUrl + 'manga/?page=' + page_number);
         let $ = cheerio.load(response.data);
 
+        // Find previous & next page
+        const convertedPageNumber = parseInt(page_number);
+
+        const pageMeta = $('.hpage');
+        obj.previousPage = $(pageMeta).find('.l') != "" ? (convertedPageNumber - 1) : 0
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.r') != "" ? (convertedPageNumber + 1) : 0
+
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
-            const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const manga_endpoint = $(element).find("a")
+                .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text();
             const rating = $(element).find("i").text();
 
-            obj.push({
+            result.push({
                 title,
                 manga_endpoint,
                 type,
@@ -332,7 +374,9 @@ exports.get_all_manga = async (req, res) => {
             })
         });
 
-        client.setex('manga/' + page_number, 3600, JSON.stringify(obj));
+        obj.result = result;
+
+        client.setex('manga/' + page_number, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -346,19 +390,30 @@ exports.get_all_manhwa = async (req, res) => {
     const page_number = req.params.page_number;
 
     try {
-        const obj = [];
+        const obj = {};
+        const result = [];
         const response = await axios.get(baseUrl + 'manhwa/?page=' + page_number);
         let $ = cheerio.load(response.data);
 
+        // Find pagination info
+        const convertedPageNumber = parseInt(page_number);
+        const pageMeta = $('.pagination');
+        obj.previousPage = $(pageMeta).find('.prev') == ""
+            ? (convertedPageNumber - 1) : 0;
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.next') != ""
+            ? (convertedPageNumber + 1) : 0;
+
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
-            const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const manga_endpoint = $(element).find("a")
+                .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text();
             const rating = $(element).find("i").text();
 
-            obj.push({
+            result.push({
                 title,
                 manga_endpoint,
                 type,
@@ -368,7 +423,9 @@ exports.get_all_manhwa = async (req, res) => {
             })
         });
 
-        client.setex('manhwa/' + page_number, 3600, JSON.stringify(obj));
+        obj.result = result;
+
+        client.setex('manhwa/' + page_number, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -382,19 +439,30 @@ exports.get_all_manhua = async (req, res) => {
     const page_number = req.params.page_number;
 
     try {
-        const obj = [];
+        const obj = {};
+        const result = [];
         const response = await axios.get(baseUrl + 'manhua/?page=' + page_number);
         let $ = cheerio.load(response.data);
 
+        // Find pagination info
+        const convertedPageNumber = parseInt(page_number);
+        const pageMeta = $('.pagination');
+        obj.previousPage = $(pageMeta).find('.prev') == ""
+            ? (convertedPageNumber - 1) : 0;
+        obj.currentPage = convertedPageNumber;
+        obj.nextPage = $(pageMeta).find('.next') != ""
+            ? (convertedPageNumber + 1) : 0;
+
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
-            const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
+            const manga_endpoint = $(element).find("a")
+                .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text();
             const rating = $(element).find("i").text();
 
-            obj.push({
+            result.push({
                 title,
                 manga_endpoint,
                 type,
@@ -404,7 +472,9 @@ exports.get_all_manhua = async (req, res) => {
             })
         });
 
-        client.setex('manhua/' + page_number, 3600, JSON.stringify(obj));
+        obj.result = result;
+
+        client.setex('manhua/' + page_number, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -418,19 +488,16 @@ exports.get_best_series = async (req, res) => {
     try {
         const jsonfile = require('jsonfile');
         const file = 'constant/best_series.json';
-        var result;
-        
+
         jsonfile.readFile(file, function (err, obj) {
             if (err) {
                 res.status(404).json({
                     error_message: err.message
                 });
             }
-            client.setex('best-series', 3600, JSON.stringify(obj));
+            client.setex('best-series', 6000, JSON.stringify(obj));
             res.status(200).json(obj);
         })
-
-
 
     } catch (e) {
         res.status(404).json({

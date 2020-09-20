@@ -132,20 +132,28 @@ https://mangabuzz.glitch.me/api/genre/all
 <p>
 
 ```
-[
+{
+  "previousPage": 2,
+  "currentPage": 3,
+  "nextPage": 4,
+  "result": [
     {
-        "title":"One Piece",
-        "manga_endpoint":"one-piece/",
-        "type":"Manga",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2018/10/cover-one-piece.jpg",
-        "chapter":"Ch.990.5",
-        "rating":"9.01"
+      "title": "After Transformation, Mine and Her Wild Fantasy",
+      "manga_endpoint": "after-transformation-mine-and-her-wild-fantasy/",
+      "type": "Manhua",
+      "image": "https://i2.wp.com/komikindo.co/wp-content/uploads/2018/09/After-Transformation-Mine-and-Her-Wild-Fantasy.jpg",
+      "chapter": "Ch.83",
+      "rating": "7.00"
     }
-]
+  ]
+}
 ```
 
 </p>
 </details>
+
+
+Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
 https://mangabuzz.glitch.me/api/genre/action/2
@@ -158,25 +166,46 @@ https://mangabuzz.glitch.me/api/genre/action/2
 <p>
 
 ```
-[
+{
+  "previousPage": 0,
+  "currentPage": 1,
+  "nextPage": 2,
+  "latestUpdateList": [
     {
-        "title":"Rebirth of the Urban Immortal Cultivator","manga_endpoint":"rebirth-of-the-urban-immortal-cultivator/",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2020/01/chen-fan.jpg",
-        "hotTag":"H",
-        "newTag":"",
-        "listNewChapter":[
-            {
-                "chapterName":"Ch.468","chapter_endpoint":"rebirth-of-the-urban-immortal-cultivator-chapter-468/","updatedOn":"3 jam lalu"
-            },]
+      "title": "unOrdinary",
+      "manga_endpoint": "unordinary/",
+      "image": "https://i3.wp.com/komikindo.co/wp-content/uploads/2018/09/UnOrdinary_Seraphina.jpg",
+      "hotTag": "",
+      "newTag": "",
+      "listNewChapter": [
+        {
+          "chapterName": "Ch.119",
+          "chapter_endpoint": "unordinary-chapter-119/",
+          "updatedOn": "3 jam lalu"
+        },
+        {
+          "chapterName": "Ch.118",
+          "chapter_endpoint": "unordinary-chapter-118/",
+          "updatedOn": "3 minggu lalu"
+        },
+        {
+          "chapterName": "Ch.117",
+          "chapter_endpoint": "unordinary-chapter-117/",
+          "updatedOn": "4 minggu lalu"
+        }
+      ]
     }
-]
+  ]
+}
 ```
 
 </p>
 </details>
 
+Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
+
 Live Response:
-https://mangabuzz.glitch.me/api/latest_update/2
+https://mangabuzz.glitch.me/api/latest_update/1
 
 ### Search Manga
 
@@ -214,20 +243,27 @@ https://mangabuzz.glitch.me/api/search/?query=one%20piece
 <p>
 
 ```
-[
+{
+  "previousPage": 2,
+  "currentPage": 3,
+  "nextPage": 4,
+  "result": [
     {
-        "title":"One Piece",
-        "manga_endpoint":"one-piece/",
-        "type":"Manga",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2018/10/cover-one-piece.jpg",
-        "chapter":"Ch.990.5",
-        "rating":"9.01"
+      "title": "After Transformation, Mine and Her Wild Fantasy",
+      "manga_endpoint": "after-transformation-mine-and-her-wild-fantasy/",
+      "type": "Manhua",
+      "image": "https://i2.wp.com/komikindo.co/wp-content/uploads/2018/09/After-Transformation-Mine-and-Her-Wild-Fantasy.jpg",
+      "chapter": "Ch.83",
+      "rating": "7.00"
     }
-]
+  ]
+}
 ```
 
 </p>
 </details>
+
+Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
 https://mangabuzz.glitch.me/api/manga/1
@@ -240,20 +276,27 @@ https://mangabuzz.glitch.me/api/manga/1
 <p>
 
 ```
-[
+{
+  "previousPage": 2,
+  "currentPage": 3,
+  "nextPage": 4,
+  "result": [
     {
-        "title":"One Piece",
-        "manga_endpoint":"one-piece/",
-        "type":"Manga",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2018/10/cover-one-piece.jpg",
-        "chapter":"Ch.990.5",
-        "rating":"9.01"
+      "title": "After Transformation, Mine and Her Wild Fantasy",
+      "manga_endpoint": "after-transformation-mine-and-her-wild-fantasy/",
+      "type": "Manhua",
+      "image": "https://i2.wp.com/komikindo.co/wp-content/uploads/2018/09/After-Transformation-Mine-and-Her-Wild-Fantasy.jpg",
+      "chapter": "Ch.83",
+      "rating": "7.00"
     }
-]
+  ]
+}
 ```
 
 </p>
 </details>
+
+Jika previous/next page berupa ```0``` maka page tersebut tidak ada
 
 Live Response:
 https://mangabuzz.glitch.me/api/manhwa/2
@@ -266,20 +309,27 @@ https://mangabuzz.glitch.me/api/manhwa/2
 <p>
 
 ```
-[
+{
+  "previousPage": 2,
+  "currentPage": 3,
+  "nextPage": 4,
+  "result": [
     {
-        "title":"One Piece",
-        "manga_endpoint":"one-piece/",
-        "type":"Manga",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2018/10/cover-one-piece.jpg",
-        "chapter":"Ch.990.5",
-        "rating":"9.01"
+      "title": "After Transformation, Mine and Her Wild Fantasy",
+      "manga_endpoint": "after-transformation-mine-and-her-wild-fantasy/",
+      "type": "Manhua",
+      "image": "https://i2.wp.com/komikindo.co/wp-content/uploads/2018/09/After-Transformation-Mine-and-Her-Wild-Fantasy.jpg",
+      "chapter": "Ch.83",
+      "rating": "7.00"
     }
-]
+  ]
+}
 ```
 
 </p>
 </details>
+
+Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
 https://mangabuzz.glitch.me/api/manhua/1

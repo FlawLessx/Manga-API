@@ -11,13 +11,13 @@ GET http://localhost:3000/api/manga/chapter/spirit-sword-sovereign-chapter-332/
 ###
 GET http://localhost:3000/api/genre/all
 ###
-GET http://localhost:3000/api/latest_update/4
+GET http://localhost:3000/api/latest_update/1
 ###
 GET http://localhost:3000/api/genre/action/4
 ###
-GET http://localhost:3000/api/search/?query=one piece
+GET http://localhost:3000/api/search/?query=one
 ###
-GET http://localhost:3000/api/manga/2
+GET http://localhost:3000/api/manga/7
 ###
 GET http://localhost:3000/api/manhwa/1
 ###
