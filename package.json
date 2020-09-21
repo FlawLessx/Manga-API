@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js",
-    "test": "mocha",
     "start": "/app/bin/redis-server /app/redis.conf & node server.js"
   },
   "repository": {
