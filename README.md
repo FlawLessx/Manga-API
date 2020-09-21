@@ -53,25 +53,30 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
 <p>
 
 ```
-[
+{
+  "title":"Ajin",
+  "mangaEndpoint": "ajin/",
+  "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2017/08/Ajin.jpg",
+  "status":"Ongoing",
+  "released":"2012",
+  "author":"Miura Tsuina",
+  "type":"Manga",
+  "rating":"7.00",
+  "lastUpdated":"September 9, 2020",
+  "description":"Those who are resistant to death are called “Demi-humans”.That day, Kei Nagai, a High school student, should have died in a traffic accident, but he comes back to life shortly after. In other words, Kei is a demi-human. Since then, Kei’s world changes dramatically. Terrified and without knowing what is going on, Kei is saved by his friend, Kai. Together, they flee deep into a deserted mountain. Later, a group of demi-humans who are hostile against humans contact Kai… Who is he fighting against? Who should he side with?",
+  "genreList":[
+      {
+      "genreName":"Action",
+      "genre_endpoint":"action/"
+      }],
+  "chapterList":[
     {
-        "title":"Ajin",
-        "mangaEndpoint": "ajin/",
-        "image":"https://i1.wp.com/komikindo.co/wp-content/uploads/2017/08/Ajin.jpg",
-        "status":"Ongoing",
-        "released":"2012",
-        "author":"Miura Tsuina",
-        "type":"Manga",
-        "rating":"7.00",
-        "lastUpdated":"September 9, 2020",
-        "description":"Those who are resistant to death are called “Demi-humans”.That day, Kei Nagai, a High school student, should have died in a traffic accident, but he comes back to life shortly after. In other words, Kei is a demi-human. Since then, Kei’s world changes dramatically. Terrified and without knowing what is going on, Kei is saved by his friend, Kai. Together, they flee deep into a deserted mountain. Later, a group of demi-humans who are hostile against humans contact Kai… Who is he fighting against? Who should he side with?",
-        "genreList":[
-            {"genreName":"Action","genre_endpoint":"action/"},{"genreName":"Adventure","genre_endpoint":"adventure/"},{"genreName":"Horror","genre_endpoint":"horror/"},{"genreName":"Mature","genre_endpoint":"mature/"},{"genreName":"Mystery","genre_endpoint":"mystery/"},{"genreName":"Seinen","genre_endpoint":"seinen/"},{"genreName":"Supernatural","genre_endpoint":"supernatural/"}],
-        "chapterList":[
-            {"chapterName":"Chapter 82","chapter_endpoint":"ajin-chapter-82/","chapterDownload":"https://dl.komikindo.co?id=290167"}
-        ]
+      "chapterName":"Chapter 82",
+      "chapter_endpoint":"ajin-chapter-82/",
+      "chapterDownload":"https://dl.komikindo.co?id=290167"
     }
-]
+    ]
+}
 ```
 
 </p>
