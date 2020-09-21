@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'mangabuzz'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_52b44f750a7f42ab897217efb1737ca5 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_481085b51a804fd2b3629254157c7f22 }}
         package: .
