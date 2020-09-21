@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "/app/bin/redis-server /app/redis.conf & node server.js"
   },
   "repository": {
