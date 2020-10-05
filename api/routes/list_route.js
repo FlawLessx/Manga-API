@@ -20,6 +20,7 @@ module.exports = function(app){
     app.route('/api/manga/:page_number').get(controller.get_all_manga_cache);
     app.route('/api/manhwa/:page_number').get(controller.get_all_manhwa_cache);
     app.route('/api/manhua/:page_number').get(controller.get_all_manhua_cache);
+    app.route('/api/trending').get(controller.get_trending_cache);
 
     // API Path Not Found Handle
     app.route('*').get(controller.not_found);

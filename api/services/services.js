@@ -505,3 +505,47 @@ exports.get_best_series = async (req, res) => {
         });
     }
 }
+
+exports.get_trending = async (req, res) => {
+    try {
+        const obj = [];
+        const response = await axios.get(baseUrl);
+        let $ = cheerio.load(response.data);
+
+        $(".stage").find(".item").each((i, element) => {
+            const genre = [];
+
+            const img = $(element).find(".slide-bg").find("img").attr("src");
+            const contentMeta = $(element).find(".slide-content");
+            const title = $(contentMeta).find(".ellipsis").find("a").text();
+            const mangaEndpoint = $(contentMeta).find(".ellipsis").find("a").attr("href").split("/")[4] + '/';
+            const type = $(contentMeta).find(".release-year").text();
+            $(".extra-category").find("a").each((i, el) => {
+                const genreName = $(el).text();
+                const genreEndpoint = $(el).attr('href').split('/')[4] + '/';
+
+                genre.push({
+                    genreName,
+                    genreEndpoint
+                })
+            })
+
+            obj.push({
+                title,
+                img,
+                mangaEndpoint,
+                type,
+                genre
+            })
+
+            console.log(contentMeta.html());
+        })
+
+        //client.setex('trending', 6000, JSON.stringify(obj));
+        res.status(200).json(obj);
+    } catch (e) {
+        res.status(404).json({
+            error_message: e.message
+        });
+    }
+}
