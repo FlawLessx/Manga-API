@@ -1,10 +1,14 @@
 'use strict';
 
-const client = require('redis').createClient(process.env.REDIS_URL);
 const { json } = require('express');
 const services = require("../services/services");// Require 'bluebird' in your package.json file, and run npm install.
 const fs = require('fs');
 const marked = require('marked');
+var redis = require('redis');
+var url = require('url');
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+client.auth(redisURL.auth.split(":")[1]);
 
 exports.not_found = (req, res) => {
     res.status(404).json({
