@@ -6,7 +6,7 @@ const fs = require('fs');
 const marked = require('marked');
 var redis = require('redis');
 console.log('REDISCLOUD_URL: ' + process.env.REDISCLOUD_URL);
-var client = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
+var client = redis.createClient("redis://default:2AB4yVgmUu8krfELqpjrxB2dxCrhp7X0@redis-11706.c8.us-east-1-2.ec2.cloud.redislabs.com:11706", {no_ready_check: true});
 
 exports.not_found = (req, res) => {
     res.status(404).json({
