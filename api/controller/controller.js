@@ -12,7 +12,7 @@ var redisURL;
 
 if (process.env.REDISCLOUD_URL) {
     // production
-    redisUrl = url.parse(process.env.REDISCLOUD_URL);
+    redisURL = url.parse(process.env.REDISCLOUD_URL);
     client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
     client.auth(redisURL.auth.split(":")[1]);
 } else {
