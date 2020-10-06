@@ -8,7 +8,7 @@ var redis = require('redis');
 const url = require('url');
 console.log('REDISCLOUD_URL: ' + process.env.REDISCLOUD_URL);
 var client;
-var redisUrl;
+var redisURL;
 
 if (process.env.REDISCLOUD_URL) {
     // production
