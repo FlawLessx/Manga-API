@@ -8,8 +8,7 @@ const fs = require('fs');
 const marked = require('marked');
 
 if (process.env.REDIS_URL) {
-    let redisURL = url.parse(process.env.REDIS_URL);
-    client = redis.createClient(redisURL)
+    client = redis.createClient(process.env.REDIS_URL)
 } else {
     client = redis.createClient()
 }
