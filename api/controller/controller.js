@@ -5,19 +5,8 @@ const services = require("../services/services");// Require 'bluebird' in your p
 const fs = require('fs');
 const marked = require('marked');
 const redis = require('redis');
-const url = require('url');
-var client;
 let REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
-
-if (process.env.REDIS_URL) {
-    // production
-    console.log('REDIS_URL: ' + REDIS_URL);
-    client = redis.createClient(REDIS_URL)
-} else {
-    // development
-    client = redis.createClient();
-    client.select((process.env.NODE_ENV || 'development').length);
-}
+const client = redis.createClient(REDIS_URL);
 
 exports.not_found = (req, res) => {
     res.status(404).json({
