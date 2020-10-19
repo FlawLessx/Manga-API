@@ -95,7 +95,6 @@ https://mangabuzz.glitch.me/api/manga/detail/ajin/
 ```
 [
     {
-        "indexImage":"1",
         "imageLink":"https://acecdn.xyz/wp-content/3/2de59d39a77a3866253d51cfb9879792/332/3f36c5d18a1fefa0fc76f9688670e054.jpg"
     }
 ]
@@ -182,6 +181,7 @@ https://mangabuzz.glitch.me/api/genre/action/2
       "image": "https://i3.wp.com/komikindo.co/wp-content/uploads/2018/09/UnOrdinary_Seraphina.jpg",
       "hotTag": "",
       "newTag": "",
+      "type: "Manga",
       "listNewChapter": [
         {
           "chapterName": "Ch.119",

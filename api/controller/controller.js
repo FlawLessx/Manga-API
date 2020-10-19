@@ -168,14 +168,3 @@ exports.get_best_series_cache = (req, res) => {
             services.get_best_series(req, res);
     });
 }
-
-exports.get_trending_cache = (req, res) => {
-    client.get('trending', (err, result) => {
-        if (result) {
-            const parseResult = JSON.parse(result);
-            res.send(parseResult);
-        }
-        else
-            services.get_trending(req, res);
-    });
-}

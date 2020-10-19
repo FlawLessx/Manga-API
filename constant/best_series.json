@@ -1,45 +1,50 @@
 [
-    {
-        "title": "One Piece",
-        "manga_endpoint": "one-piece/",
-        "image": "https://i.imgur.com/NKMfjRr.jpg",
-        "type": "Manga"
-    },
-    {
-        "title": "Solo Leveling",
-        "manga_endpoint": "solo-leveling/",
-        "image": "https://i.imgur.com/1fsJIhh.jpg",
-        "type": "Manhwa"
-    },
-    {
-        "title": "Black Clover",
-        "manga_endpoint": "black-clover/",
-        "image": "https://i.imgur.com/wv0PHMW.jpg",
-        "type": "Manga"
-    },
-    {
-        "title": "Apotheosis",
-        "manga_endpoint": "apotheosis/",
-        "image": "https://i.imgur.com/3J2M6ft.jpg",
-        "type": "Manhua"
-    },
-    {
-        "title": "Tower Of God",
-        "manga_endpoint": "tower-of-god/",
-        "image": "https://i.imgur.com/bOu0QOS.jpg",
-        "type": "Manhwa"
-    },
-    {
-        "title": "Haikyuu",
-        "manga_endpoint": "haikyuu/",
-        "image": "https://i.imgur.com/JXEHruP.jpg",
-        "type": "Manga"
-    },
-    {
-        "title": "Boku No Hero Academia",
-        "manga_endpoint": "boku-no-hero-academia/",
-        "image": "https://i.imgur.com/w79yWEo.jpg",
-        "type": "Manga"
-    }
+  {
+    "title": "One Piece",
+    "manga_endpoint": "one-piece/",
+    "image": "https://i.imgur.com/NKMfjRr.jpg",
+    "type": "Manga"
+  },
+  {
+    "title": "Solo Leveling",
+    "manga_endpoint": "solo-leveling/",
+    "image": "https://i.imgur.com/1fsJIhh.jpg",
+    "type": "Manhwa"
+  },
+  {
+    "title": "Black Clover",
+    "manga_endpoint": "black-clover/",
+    "image": "https://i.imgur.com/wv0PHMW.jpg",
+    "type": "Manga"
+  },
+  {
+    "title": "Apotheosis",
+    "manga_endpoint": "apotheosis/",
+    "image": "https://i.imgur.com/3J2M6ft.jpg",
+    "type": "Manhua"
+  },
+  {
+    "title": "Tower Of God",
+    "manga_endpoint": "tower-of-god/",
+    "image": "https://i.imgur.com/bOu0QOS.jpg",
+    "type": "Manhwa"
+  },
+  {
+    "title": "Haikyuu",
+    "manga_endpoint": "haikyuu/",
+    "image": "https://i.imgur.com/JXEHruP.jpg",
+    "type": "Manga"
+  },
+  {
+    "title": "Boku No Hero Academia",
+    "manga_endpoint": "boku-no-hero-academia/",
+    "image": "https://i.imgur.com/w79yWEo.jpg",
+    "type": "Manga"
+  },
+  {
+    "title": "Kingdom",
+    "manga_endpoint": "kingdom/",
+    "image": "https://i.imgur.com/UPAqZFj.jpg",
+    "type": "Manga"
+  }
 ]
-

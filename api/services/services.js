@@ -130,11 +130,9 @@ exports.get_chapter = async (req, res) => {
         const imageList = [];
 
         $('#readerarea').find('img').each((i, item) => {
-            const indexImage = $(item).attr('data-tai');
             const imageLink = $(item).attr('src');
 
             imageList.push({
-                indexImage,
                 imageLink
             });
         });
@@ -196,8 +194,15 @@ exports.get_latest_update = async (req, res) => {
         obj.currentPage = convertedPageNumber;
         obj.nextPage = $(pageMeta).find('.r') != "" ? (convertedPageNumber + 1) : 0
 
+        const listData = [];
+        $('.listupd').each((i, el) => {
+            listData.push({el});
+        });
+
+        const data = listData[2].el;
+
         // Find latest update 
-        $('.utao').each((i, element) => {
+        $(data).find('.utao').each((i, element) => {
             const item = $(element).find('.uta');
             const listNewChapter = [];
 
@@ -205,8 +210,9 @@ exports.get_latest_update = async (req, res) => {
             const manga_endpoint = $(item).find('.imgu').find('a')
                 .attr('href').split('/')[4] + '/';
             const image = $(item).find('.imgu').find('img').attr('src').split('?')[0];
-            const hotTag = $(item).find('.imgu').find('.hot').text();
-            const newTag = $(item).find('.new').find('.new').text();
+            const hotTag = $(item).find('.imgu').find('.hot') != "" ? "H" : "";
+            const newTag = $(item).find('.new').text();
+            const type = $(item).find('ul').attr('class');
 
             $(item).find('ul').find('li').each((i, element) => {
                 const chapter_endpoint = $(element).find('a').attr('href')
@@ -227,6 +233,7 @@ exports.get_latest_update = async (req, res) => {
                 image,
                 hotTag,
                 newTag,
+                type,
                 listNewChapter
             });
         })
@@ -301,15 +308,6 @@ exports.get_search_manga = async (req, res) => {
         const response = await axios.get(baseUrl + '?s=' + query);
         let $ = cheerio.load(response.data);
 
-        // Find pagination info
-        const convertedPageNumber = parseInt(page_number);
-        const pageMeta = $('.pagination');
-        obj.previousPage = $(pageMeta).find('.prev') != ""
-            ? (convertedPageNumber - 1) : 0;
-        obj.currentPage = convertedPageNumber;
-        obj.nextPage = $(pageMeta).find('.next') != ""
-            ? (convertedPageNumber + 1) : 0;
-
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
@@ -344,7 +342,7 @@ exports.get_all_manga = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manga/?page=' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manga');
         let $ = cheerio.load(response.data);
 
         // Find previous & next page
@@ -392,7 +390,7 @@ exports.get_all_manhwa = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manhwa/?page=' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhwa');
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -441,7 +439,7 @@ exports.get_all_manhua = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manhua/?page=' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhua');
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -499,50 +497,6 @@ exports.get_best_series = async (req, res) => {
             res.status(200).json(obj);
         })
 
-    } catch (e) {
-        res.status(404).json({
-            error_message: e.message
-        });
-    }
-}
-
-exports.get_trending = async (req, res) => {
-    try {
-        const obj = [];
-        const response = await axios.get(baseUrl);
-        let $ = cheerio.load(response.data);
-
-        $(".stage").find(".item").each((i, element) => {
-            const genre = [];
-
-            const img = $(element).find(".slide-bg").find("img").attr("src");
-            const contentMeta = $(element).find(".slide-content");
-            const title = $(contentMeta).find(".ellipsis").find("a").text();
-            const mangaEndpoint = $(contentMeta).find(".ellipsis").find("a").attr("href").split("/")[4] + '/';
-            const type = $(contentMeta).find(".release-year").text();
-            $(".extra-category").find("a").each((i, el) => {
-                const genreName = $(el).text();
-                const genreEndpoint = $(el).attr('href').split('/')[4] + '/';
-
-                genre.push({
-                    genreName,
-                    genreEndpoint
-                })
-            })
-
-            obj.push({
-                title,
-                img,
-                mangaEndpoint,
-                type,
-                genre
-            })
-
-            console.log(contentMeta.html());
-        })
-
-        //client.setex('trending', 6000, JSON.stringify(obj));
-        res.status(200).json(obj);
     } catch (e) {
         res.status(404).json({
             error_message: e.message
