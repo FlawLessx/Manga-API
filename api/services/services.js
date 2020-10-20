@@ -194,9 +194,9 @@ exports.get_latest_update = async (req, res) => {
         const convertedPageNumber = parseInt(page_number);
 
         const pageMeta = $('.hpage');
-        obj.previousPage = $(pageMeta).find('.l') != "" ? (convertedPageNumber - 1) : 0
+        obj.previousPage = convertedPageNumber != 1 ? (convertedPageNumber - 1) : 0
         obj.currentPage = convertedPageNumber;
-        obj.nextPage = $(pageMeta).find('.r') != "" ? (convertedPageNumber + 1) : 0
+        obj.nextPage = $(pageMeta).find('.dashicons-arrow-right-alt2') != "" ? (convertedPageNumber + 1) : 0
 
         const listData = [];
         $('.listupd').each((i, el) => {
@@ -350,10 +350,10 @@ exports.get_all_manga = async (req, res) => {
         // Find previous & next page
         const convertedPageNumber = parseInt(page_number);
 
-        const pageMeta = $('.hpage');
-        obj.previousPage = $(pageMeta).find('.l') != "" ? (convertedPageNumber - 1) : 0
+        const pageMeta = $('.pagination');
+        obj.previousPage = $(pageMeta).find('.prev') != "" ? (convertedPageNumber - 1) : 0
         obj.currentPage = convertedPageNumber;
-        obj.nextPage = $(pageMeta).find('.r') != "" ? (convertedPageNumber + 1) : 0
+        obj.nextPage = $(pageMeta).find('.next') != "" ? (convertedPageNumber + 1) : 0
 
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
@@ -398,11 +398,9 @@ exports.get_all_manhwa = async (req, res) => {
         // Find pagination info
         const convertedPageNumber = parseInt(page_number);
         const pageMeta = $('.pagination');
-        obj.previousPage = $(pageMeta).find('.prev') == ""
-            ? (convertedPageNumber - 1) : 0;
+        obj.previousPage = $(pageMeta).find('.prev') != "" ? (convertedPageNumber - 1) : 0
         obj.currentPage = convertedPageNumber;
-        obj.nextPage = $(pageMeta).find('.next') != ""
-            ? (convertedPageNumber + 1) : 0;
+        obj.nextPage = $(pageMeta).find('.next') != "" ? (convertedPageNumber + 1) : 0
 
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
@@ -447,11 +445,9 @@ exports.get_all_manhua = async (req, res) => {
         // Find pagination info
         const convertedPageNumber = parseInt(page_number);
         const pageMeta = $('.pagination');
-        obj.previousPage = $(pageMeta).find('.prev') == ""
-            ? (convertedPageNumber - 1) : 0;
+        obj.previousPage = $(pageMeta).find('.prev') != "" ? (convertedPageNumber - 1) : 0
         obj.currentPage = convertedPageNumber;
-        obj.nextPage = $(pageMeta).find('.next') != ""
-            ? (convertedPageNumber + 1) : 0;
+        obj.nextPage = $(pageMeta).find('.next') != "" ? (convertedPageNumber + 1) : 0
 
         $('.bs').find(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
