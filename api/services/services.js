@@ -37,7 +37,7 @@ exports.get_manga_detail = async (req, res) => {
 
         const getMeta = $('.spe').find('span');
 
-        obj.title = $('.infox').find('h1').text();
+        obj.title = $('.infox').find('h1').text().split('Bahasa')[0].trim();
         obj.mangaEndpoint = manga_endpoint + '/';
         obj.image = $('.thumb').find('img').attr('src').split('?')[0];
         obj.status = $(getMeta).eq(1).text().split(":").pop().trim();
@@ -184,7 +184,7 @@ exports.get_all_genre = async (req, res) => {
 exports.get_latest_update = async (req, res) => {
     try {
         const page_number = req.params.page_number;
-        const url = baseUrl + '?page=' + page_number;
+        const url = baseUrl + 'page/' + page_number;
         const responses = await axios.get(url);
         let $ = cheerio.load(responses.data);
         const obj = {};

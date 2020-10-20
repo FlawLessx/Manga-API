@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const http = require('http');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
@@ -13,3 +14,7 @@ routes(app);
 
 app.listen(port)
 console.log('Listen on port: ' + port);
+
+setInterval(() => {
+    http.get('https://${process.env.PROJECT_DOMAIN}.glitch.me/')
+}, 280000);

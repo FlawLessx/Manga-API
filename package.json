@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "http": "0.0.1-security",
     "jsonfile": "^6.0.1",
     "marked": "^1.1.1",
     "nodemon": "^2.0.4",

@@ -1,6 +1,6 @@
 # Manga-API
 
-REST API manga berbahasa indonesia, didapatkan dengan scraping dari web komikindo.co dan dibuat dengan node.js.
+REST API manga berbahasa indonesia, didapatkan dengan scraping dari web komikcast.com dan dibuat dengan node.js.
 
 ## Fitur
 
