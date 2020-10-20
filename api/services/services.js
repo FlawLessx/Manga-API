@@ -219,8 +219,8 @@ exports.get_latest_update = async (req, res) => {
 
             $(item).find('ul').find('li').each((i, element) => {
                 const chapter_endpoint = $(element).find('a').attr('href')
-                    .split('/')[3] + '/';
-                const chapterName = $(element).find('a').text();
+                    .split('/')[4] + '/';
+                const chapterName ='Ch.' + $(element).find('a').text().split(' ')[1];
                 const updatedOn = $(element).find('span').text();
 
                 listNewChapter.push({
