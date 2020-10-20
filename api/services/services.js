@@ -45,7 +45,7 @@ exports.get_manga_detail = async (req, res) => {
         obj.author = $(getMeta).eq(3).text().split(":").pop().trim();
         obj.type = $(getMeta).eq(4).find('a').text();
         obj.rating = $('.rating').find('strong').text().split(' ')[1];
-        obj.lastUpdated = $(getMeta).eq(7).find('time').text();
+        obj.lastUpdated = $(getMeta).eq(6).find('time').text();
         obj.description = $('.desc').find('p').text();
         const genreList = [];
         const chapterList = [];
@@ -62,16 +62,16 @@ exports.get_manga_detail = async (req, res) => {
         });
 
         // Get Chapter List
-        $('.bxcl').find('li').each((i, item) => {
+        $('.cl').find('li').each((i, item) => {
             const meta = $(item).find('span');
             const chapterName = $(meta).find('a').eq(0).text();
-            const chapter_endpoint = $(meta).find('a').eq(0).attr('href').split('/')[3] + '/';
-            const chapterDownload = $(meta).find('.dload').attr('href');
+            const chapter_endpoint = $(meta).find('a').eq(0).attr('href').split('/')[4] + '/';
+            const updatedOn = $(meta).eq(1).text();
 
             chapterList.push({
                 chapterName,
                 chapter_endpoint,
-                chapterDownload
+                updatedOn
             });
         })
 
@@ -99,7 +99,7 @@ exports.get_hot_manga_update = async (req, res) => {
             const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             obj.push({
@@ -130,6 +130,10 @@ exports.get_chapter = async (req, res) => {
         const imageList = [];
 
         $('#readerarea').find('img').each((i, item) => {
+            if (i === 0){
+                return;
+            }
+
             const imageLink = $(item).attr('src');
 
             imageList.push({
@@ -196,7 +200,7 @@ exports.get_latest_update = async (req, res) => {
 
         const listData = [];
         $('.listupd').each((i, el) => {
-            listData.push({el});
+            listData.push({ el });
         });
 
         const data = listData[2].el;
@@ -211,7 +215,6 @@ exports.get_latest_update = async (req, res) => {
                 .attr('href').split('/')[4] + '/';
             const image = $(item).find('.imgu').find('img').attr('src').split('?')[0];
             const hotTag = $(item).find('.imgu').find('.hot') != "" ? "H" : "";
-            const newTag = $(item).find('.new').text();
             const type = $(item).find('ul').attr('class');
 
             $(item).find('ul').find('li').each((i, element) => {
@@ -232,7 +235,6 @@ exports.get_latest_update = async (req, res) => {
                 manga_endpoint,
                 image,
                 hotTag,
-                newTag,
                 type,
                 listNewChapter
             });
@@ -276,7 +278,7 @@ exports.get_genre = async (req, res) => {
                 .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             result.push({
@@ -313,7 +315,7 @@ exports.get_search_manga = async (req, res) => {
             const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             obj.push({
@@ -342,7 +344,7 @@ exports.get_all_manga = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manga');
+        const response = await axios.get(baseUrl + 'type/manga/page/' + page_number);
         let $ = cheerio.load(response.data);
 
         // Find previous & next page
@@ -359,7 +361,7 @@ exports.get_all_manga = async (req, res) => {
                 .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             result.push({
@@ -390,7 +392,7 @@ exports.get_all_manhwa = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhwa');
+        const response = await axios.get(baseUrl + 'type/manhwa/page/' + page_number);
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -408,7 +410,7 @@ exports.get_all_manhwa = async (req, res) => {
                 .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             result.push({
@@ -439,7 +441,7 @@ exports.get_all_manhua = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhua');
+        const response = await axios.get(baseUrl + 'type/manhua/page/' + page_number);
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -457,7 +459,7 @@ exports.get_all_manhua = async (req, res) => {
                 .attr("href").split('/')[4] + '/';
             const type = $(element).find("span").text();
             const image = $(element).find("img").attr("src").split('?')[0];
-            const chapter = $(element).find(".epxs").text();
+            const chapter = $(element).find(".epxs").text().trim().split('/')[0];
             const rating = $(element).find("i").text();
 
             result.push({

@@ -73,7 +73,7 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
     {
       "chapterName":"Chapter 82",
       "chapter_endpoint":"ajin-chapter-82/",
-      "chapterDownload":"https://dl.komikindo.co?id=290167"
+      "updatedOn":"3 days ago"
     }
     ]
 }
@@ -180,7 +180,6 @@ https://mangabuzz.glitch.me/api/genre/action/2
       "manga_endpoint": "unordinary/",
       "image": "https://i3.wp.com/komikindo.co/wp-content/uploads/2018/09/UnOrdinary_Seraphina.jpg",
       "hotTag": "",
-      "newTag": "",
       "type: "Manga",
       "listNewChapter": [
         {

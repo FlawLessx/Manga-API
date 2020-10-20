@@ -1,3 +1,3 @@
-const baseUrl = "https://komikstation.com/";
+const baseUrl = "https://komikcast.com/";
 
 module.exports = baseUrl;
