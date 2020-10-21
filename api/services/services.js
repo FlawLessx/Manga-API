@@ -28,7 +28,7 @@ exports.get_manga_detail = async (req, res) => {
     try {
         const manga_endpoint = req.params.manga_endpoint;
         const obj = {};
-        const response = await axios.get(baseUrl + 'manga/' + manga_endpoint);
+        const response = await axios.get(baseUrl + 'komik/' + manga_endpoint);
         let $ = cheerio.load(response.data);
 
         //
