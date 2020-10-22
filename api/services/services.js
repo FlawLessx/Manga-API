@@ -328,7 +328,7 @@ exports.get_search_manga = async (req, res) => {
             })
         });
 
-        client.setex(query, 6000, JSON.stringify(obj));
+        client.setex('search: ' + query, 6000, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {

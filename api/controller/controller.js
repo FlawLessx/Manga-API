@@ -6,7 +6,7 @@ const fs = require('fs');
 const marked = require('marked');
 const redis = require('redis');
 let REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
-const client = redis.createClient(REDIS_URL);
+const client = redis.createClient();
 
 exports.not_found = (req, res) => {
     res.status(404).json({
@@ -109,7 +109,7 @@ exports.get_latest_update_cache = (req, res) => {
 exports.get_search_manga_cache = (req, res) => {
     const query = req.query.query;
 
-    client.get(query, (err, result) => {
+    client.get('search: ' + query, (err, result) => {
         if (result) {
             const parseResult = JSON.parse(result);
             res.send(parseResult);
