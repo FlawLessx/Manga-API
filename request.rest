@@ -1,17 +1,17 @@
 // Get Hot Manga Update
-GET http://localhost:3000/api/manga/detail/apotheosis/
+GET http://localhost:3000/api/manga/detail/raid/
 ###
 GET http://localhost:3000/
 ###
 GET http://localhost:3000/api/hot_manga_update/
+### 
+GET http://localhost:3000/api/manga/c-sword-and-cornett/
 ###
-GET http://localhost:3000/api/manga/detail/mission-yozakura-family/
-###
-GET http://localhost:3000/api/manga/chapter/mission-yozakura-family-chapter-55-bahasa-indonesia/
+GET http://localhost:3000/api/manga/chapter/martial-peak-chapter-865-bahasa-indonesia/
 ###
 GET http://localhost:3000/api/genre/all
 ###
-GET http://localhost:3000/api/latest_update/5
+GET http://localhost:3000/api/latest_update/1
 ###
 GET http://localhost:3000/api/genre/action/5
 ###

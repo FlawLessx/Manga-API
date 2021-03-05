@@ -33,7 +33,7 @@ exports.api_cache = (req, res) => {
 
 exports.get_manga_detail_cache = (req, res) => {
     const manga_endpoint = req.params.manga_endpoint;
-
+    //manga_endpoint
     client.get(manga_endpoint, (err, result) => {
         if (result) {
             const parseResult = JSON.parse(result);

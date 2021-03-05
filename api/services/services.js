@@ -4,9 +4,9 @@ const baseUrl = require('../../constant/base_url');
 const cheerio = require("cheerio");
 const axios = require("axios");
 const redis = require("redis");
+const tr = require('tor-request');
+const puppeteer = require('puppeteer');
 const client = redis.createClient();
-const jsonFile = require('jsonfile');
-
 exports.api = (req, res) => {
     try {
         const obj = {
@@ -28,30 +28,26 @@ exports.get_manga_detail = async (req, res) => {
     try {
         const manga_endpoint = req.params.manga_endpoint;
         const obj = {};
-        const response = await axios.get(baseUrl + 'komik/' + manga_endpoint);
-        let $ = cheerio.load(response.data);
 
-        //
-        // GET Manga Detail
-        //
+        const responses = await axios.get(baseUrl + 'manga/' + manga_endpoint);
+        let $ = cheerio.load(responses.data);
 
-        const getMeta = $('.spe').find('span');
-
-        obj.title = $('.infox').find('h1').text().split('Bahasa')[0].trim();
+        const getMeta = $('.tsinfo').find('.imptdt');
+        obj.title = $('.entry-title').text();
         obj.mangaEndpoint = manga_endpoint + '/';
-        obj.image = $('.thumb').find('img').attr('src').split('?')[0];
-        obj.status = $(getMeta).eq(1).text().split(":").pop().trim();
-        obj.released = $(getMeta).eq(2).text().split(":").pop().trim();
-        obj.author = $(getMeta).eq(3).text().split(":").pop().trim();
-        obj.type = $(getMeta).eq(4).find('a').text();
-        obj.rating = $('.rating').find('strong').text().split(' ')[1];
-        obj.lastUpdated = $(getMeta).eq(6).find('time').text();
-        obj.description = $('.desc').find('p').text();
+        obj.image = $('.thumb').find('img').attr('src');
+        obj.status = $(getMeta).eq(0).find('i').text();
+        obj.released = $(getMeta).eq(2).find('i').text();
+        obj.author = $(getMeta).eq(3).find('i').text();
+        obj.type = $(getMeta).eq(1).find('a').text();
+        obj.rating = $('.num').text();
+        obj.lastUpdated = $(getMeta).eq(7).find('time').text();
+        obj.description = $('.entry-content').find('p').text().replace(/\r?\n/g, " ");
         const genreList = [];
         const chapterList = [];
 
         // Get Genre
-        const genre = $(getMeta).eq(0).find('a').each((i, element) => {
+        const genre = $('.mgen').find('a').each((i, element) => {
             const genreName = $(element).text();
             const genre_endpoint = $(element).attr('href').split('/')[4] + '/';
 
@@ -62,11 +58,11 @@ exports.get_manga_detail = async (req, res) => {
         });
 
         // Get Chapter List
-        $('.cl').find('li').each((i, item) => {
-            const meta = $(item).find('span');
-            const chapterName = $(meta).find('a').eq(0).text();
-            const chapter_endpoint = $(meta).find('a').eq(0).attr('href').split('/')[4] + '/';
-            const updatedOn = $(meta).eq(1).text();
+        $('.clstyle').find('li').each((i, item) => {
+            const meta = $(item).find('.eph-num');
+            const chapterName = $(meta).find('.chapternum').text();
+            const chapter_endpoint = $(meta).find('a').eq(0).attr('href').split('/')[3] + '/';
+            const updatedOn = $(meta).find('.chapterdate').text();
 
             chapterList.push({
                 chapterName,
@@ -78,8 +74,8 @@ exports.get_manga_detail = async (req, res) => {
         obj.genreList = genreList;
         obj.chapterList = chapterList;
 
-        client.setex(manga_endpoint, 300, JSON.stringify(obj));
         res.status(200).json(obj);
+        client.setex(manga_endpoint, 300, JSON.stringify(obj));
 
     } catch (e) {
         res.status(404).json({
@@ -97,10 +93,10 @@ exports.get_hot_manga_update = async (req, res) => {
         $(".bsx").each((i, element) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a").attr("href").split('/')[4] + '/';
-            const type = $(element).find("span").text();
+            const type = $(element).find("span").attr("class").split(' ')[1];
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text().trim().split('/')[0];
-            const rating = $(element).find("i").text();
+            const rating = $(element).find(".numscore").text();
 
             obj.push({
                 title,
@@ -125,23 +121,18 @@ exports.get_hot_manga_update = async (req, res) => {
 exports.get_chapter = async (req, res) => {
     try {
         const chapter_endpoint = req.params.chapter_endpoint;
-        const responses = await axios.get(baseUrl + chapter_endpoint);
-        let $ = cheerio.load(responses.data);
-        const imageList = [];
-
-        $('#readerarea').find('img').each((i, item) => {
-            if (i === 0){
-                return;
-            }
-
-            const imageLink = $(item).attr('src');
-
-            imageList.push({
-                imageLink
-            });
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--no-zygote']
+        });
+        const page = await browser.newPage();
+        await page.goto(baseUrl + chapter_endpoint, {
+            waitUntil: 'networkidle0',
         });
 
+        let imageList = await page.$$eval('#readerarea img[src]', imgs => imgs.map(img => img.getAttribute('src')));
+
         client.setex(chapter_endpoint, 6000, JSON.stringify(imageList));
+        await browser.close();
         res.status(200).json(imageList);
 
     } catch (e) {
@@ -153,23 +144,21 @@ exports.get_chapter = async (req, res) => {
 
 exports.get_all_genre = async (req, res) => {
     try {
-        const responses = await axios.get(baseUrl);
-        let $ = cheerio.load(responses.data);
-
+        const manga_endpoint = req.params.manga_endpoint;
         const listAllGenre = [];
 
-        $('.genre').find('li').each((i, item) => {
-            const meta = $(item).find('a');
-            const genreTitle = $(meta).attr('title');
-            const genreSubtitle = $(meta).text();
-            const genre_endpoint = $(meta).attr('href').split('/')[4] + '/';
+        const responses = await axios.get(baseUrl + 'manga/');
+        let $ = cheerio.load(responses.data);
+
+        $('.dropdown-menu').find('label').each((i, element) => {
+            const genreName = $(element).text();
+            const genreEndpoint = genreName.replace(" ", "-").toLowerCase() + '/';
 
             listAllGenre.push({
-                genreTitle,
-                genreSubtitle,
-                genre_endpoint
+                genreName,
+                genreEndpoint
             });
-        });
+        })
 
         client.setex('/api/genre/all', 6000, JSON.stringify(listAllGenre))
         res.status(200).json(listAllGenre);
@@ -215,12 +204,13 @@ exports.get_latest_update = async (req, res) => {
                 .attr('href').split('/')[4] + '/';
             const image = $(item).find('.imgu').find('img').attr('src').split('?')[0];
             const hotTag = $(item).find('.imgu').find('.hot') != "" ? "H" : "";
+            const newTag = $(item).find('.imgu').find('.new') != "" ? "N" : "";
             const type = $(item).find('ul').attr('class');
 
             $(item).find('ul').find('li').each((i, element) => {
                 const chapter_endpoint = $(element).find('a').attr('href')
                     .split('/')[4] + '/';
-                const chapterName ='Ch.' + $(element).find('a').text().split(' ')[1];
+                const chapterName = 'Ch.' + $(element).find('a').text().split(' ')[1];
                 const updatedOn = $(element).find('span').text();
 
                 listNewChapter.push({
@@ -235,6 +225,7 @@ exports.get_latest_update = async (req, res) => {
                 manga_endpoint,
                 image,
                 hotTag,
+                newTag,
                 type,
                 listNewChapter
             });
@@ -242,7 +233,7 @@ exports.get_latest_update = async (req, res) => {
 
         obj.latestUpdateList = latestUpdateList;
 
-        client.setex('/api/latest_update/' + page_number, 300, JSON.stringify(obj));
+        //client.setex('/api/latest_update/' + page_number, 300, JSON.stringify(obj));
         res.status(200).json(obj);
 
     } catch (e) {
@@ -344,7 +335,7 @@ exports.get_all_manga = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'type/manga/page/' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manga');
         let $ = cheerio.load(response.data);
 
         // Find previous & next page
@@ -359,10 +350,10 @@ exports.get_all_manga = async (req, res) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a")
                 .attr("href").split('/')[4] + '/';
-            const type = $(element).find("span").text();
+            const type = 'Manga';
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text().trim().split('/')[0];
-            const rating = $(element).find("i").text();
+            const rating = $(element).find(".numscore").text();
 
             result.push({
                 title,
@@ -392,7 +383,7 @@ exports.get_all_manhwa = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'type/manhwa/page/' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhwa');
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -406,10 +397,10 @@ exports.get_all_manhwa = async (req, res) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a")
                 .attr("href").split('/')[4] + '/';
-            const type = $(element).find("span").text();
+            const type = 'Manhwa';
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text().trim().split('/')[0];
-            const rating = $(element).find("i").text();
+            const rating = $(element).find(".numscore").text();
 
             result.push({
                 title,
@@ -439,7 +430,7 @@ exports.get_all_manhua = async (req, res) => {
     try {
         const obj = {};
         const result = [];
-        const response = await axios.get(baseUrl + 'type/manhua/page/' + page_number);
+        const response = await axios.get(baseUrl + 'manga/?page=' + page_number + '&order=title&type=Manhua');
         let $ = cheerio.load(response.data);
 
         // Find pagination info
@@ -453,10 +444,10 @@ exports.get_all_manhua = async (req, res) => {
             const title = $(element).find("a").attr("title");
             const manga_endpoint = $(element).find("a")
                 .attr("href").split('/')[4] + '/';
-            const type = $(element).find("span").text();
+            const type = 'Manhua';;
             const image = $(element).find("img").attr("src").split('?')[0];
             const chapter = $(element).find(".epxs").text().trim().split('/')[0];
-            const rating = $(element).find("i").text();
+            const rating = $(element).find(".numscore").text();
 
             result.push({
                 title,

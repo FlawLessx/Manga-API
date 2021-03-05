@@ -15,6 +15,3 @@ routes(app);
 app.listen(port)
 console.log('Listen on port: ' + port);
 
-setInterval(() => {
-    http.get('https://${process.env.PROJECT_DOMAIN}.glitch.me/')
-}, 280000);

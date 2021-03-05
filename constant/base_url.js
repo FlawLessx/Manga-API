@@ -1,3 +1,3 @@
-const baseUrl = "https://komikcast.com/";
+const baseUrl = "https://kiryuu.co/";
 
 module.exports = baseUrl;
