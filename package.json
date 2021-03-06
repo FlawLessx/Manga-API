@@ -27,11 +27,12 @@
     "http": "0.0.1-security",
     "jsonfile": "^6.0.1",
     "marked": "^1.1.1",
+    "node-cache": "^5.1.2",
+    "node-phantom": "^0.2.5",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
-    "node-cache": "^5.1.2",
-    "url": "^0.11.0",
-    "puppeteer": "^8.0.0"
+    "puppeteer": "^8.0.0",
+    "url": "^0.11.0"
   },
   "nodemonConfig": {
     "ignore": [
