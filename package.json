@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "devStart": "nodemon server.js",
-    "start": "/app/bin/redis-server /app/redis.conf & node server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
     "node-cache": "^5.1.2",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "puppeteer": "^8.0.0"
   },
   "nodemonConfig": {
     "ignore": [
