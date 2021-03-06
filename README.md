@@ -14,14 +14,14 @@ REST API manga berbahasa indonesia, didapatkan dengan scraping dari web komikcas
 
 ## Dokumentasi
          
-API Path:  ```mangabuzz.glitch.me```
+API Path:  ```Manga-API.flawlessx.repl.co```
 
 Dokumentasi versi web: 
-```mangabuzz.glitch.me/api/documentation```
+```Manga-API.flawlessx.repl.co/api/documentation```
 
 ### Hot Manga Update
 
-``` mangabuzz.glitch.me/api/hot_manga_update/ ```
+``` Manga-API.flawlessx.repl.co/api/hot_manga_update/ ```
 
 <details><summary> Example Response </summary>
 <p>
@@ -43,11 +43,11 @@ Dokumentasi versi web:
 </details>
 
 Live Response: 
-https://mangabuzz.glitch.me/api/hot_manga_update/
+https://Manga-API.flawlessx.repl.co/api/hot_manga_update/
 
 ### Manga Detail
 
-```mangabuzz.glitch.me/api/manga/detail/:manga_endpoint ```
+```Manga-API.flawlessx.repl.co/api/manga/detail/:manga_endpoint ```
 
 <details><summary> Example Response </summary>
 <p>
@@ -83,11 +83,11 @@ https://mangabuzz.glitch.me/api/hot_manga_update/
 </details>
 
 Live Response:
-https://mangabuzz.glitch.me/api/manga/detail/ajin/
+https://Manga-API.flawlessx.repl.co/api/manga/detail/ajin/
 
 ### Chapter (Reader)
 
-``` mangabuzz.glitch.me/api/manga/chapter/:chapter_endpoint```
+``` Manga-API.flawlessx.repl.co/api/manga/chapter/:chapter_endpoint```
 
 <details><summary> Example Response </summary>
 <p>
@@ -104,11 +104,11 @@ https://mangabuzz.glitch.me/api/manga/detail/ajin/
 </details>
 
 Live Response:
-https://mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332/
+https://Manga-API.flawlessx.repl.co/api/manga/chapter/spirit-sword-sovereign-chapter-332/
 
 ### All Genre
 
-```mangabuzz.glitch.me/api/genre/all```
+```Manga-API.flawlessx.repl.co/api/genre/all```
 
 <details><summary> Example Response </summary>
 <p>
@@ -126,11 +126,11 @@ https://mangabuzz.glitch.me/api/manga/chapter/spirit-sword-sovereign-chapter-332
 </details>
 
 Live Response:
-https://mangabuzz.glitch.me/api/genre/all
+https://Manga-API.flawlessx.repl.co/api/genre/all
 
 ### Genre
 
-```mangabuzz.glitch.me/api/genre/:genre_endpoint/:page_number```
+```Manga-API.flawlessx.repl.co/api/genre/:genre_endpoint/:page_number```
 
 <details><summary> Example Response </summary>
 <p>
@@ -160,11 +160,11 @@ https://mangabuzz.glitch.me/api/genre/all
 Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
-https://mangabuzz.glitch.me/api/genre/action/2
+https://Manga-API.flawlessx.repl.co/api/genre/action/2
 
 ### Latest Update
 
-```mangabuzz.glitch.me/api/latest_update/:page_number```
+```Manga-API.flawlessx.repl.co/api/latest_update/:page_number```
 
 <details><summary> Example Response </summary>
 <p>
@@ -209,11 +209,11 @@ https://mangabuzz.glitch.me/api/genre/action/2
 Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
-https://mangabuzz.glitch.me/api/latest_update/1
+https://Manga-API.flawlessx.repl.co/api/latest_update/1
 
 ### Search Manga
 
-```mangabuzz.glitch.me/api/search/:?query=nama manga```
+```Manga-API.flawlessx.repl.co/api/search/:?query=nama manga```
 
 Tambahkan ```?query=nama manga``` setelah ```api/search/```
 
@@ -237,11 +237,11 @@ Tambahkan ```?query=nama manga``` setelah ```api/search/```
 </details>
 
 Live Response:
-https://mangabuzz.glitch.me/api/search/?query=one%20piece
+https://Manga-API.flawlessx.repl.co/api/search/?query=one%20piece
 
 ### List All Manga
 
-```mangabuzz.glitch.me/api/manga/:page_number```
+```Manga-API.flawlessx.repl.co/api/manga/:page_number```
 
 <details><summary>Example Response</summary>
 <p>
@@ -270,11 +270,11 @@ https://mangabuzz.glitch.me/api/search/?query=one%20piece
 Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
-https://mangabuzz.glitch.me/api/manga/1
+https://Manga-API.flawlessx.repl.co/api/manga/1
 
 ### List All Manhwa
 
-```mangabuzz.glitch.me/api/manhwa/:page_number```
+```Manga-API.flawlessx.repl.co/api/manhwa/:page_number```
 
 <details><summary>Example Response</summary>
 <p>
@@ -303,11 +303,11 @@ https://mangabuzz.glitch.me/api/manga/1
 Jika previous/next page berupa ```0``` maka page tersebut tidak ada
 
 Live Response:
-https://mangabuzz.glitch.me/api/manhwa/2
+https://Manga-API.flawlessx.repl.co/api/manhwa/2
 
 ### List All Manhua
 
-```mangabuzz.glitch.me/api/manhua/:page_number```
+```Manga-API.flawlessx.repl.co/api/manhua/:page_number```
 
 <details><summary>Example Response</summary>
 <p>
@@ -336,4 +336,4 @@ https://mangabuzz.glitch.me/api/manhwa/2
 Jika previous/next page berupa ```0``` maka page tersebut tidak ada 
 
 Live Response:
-https://mangabuzz.glitch.me/api/manhua/1
+https://Manga-API.flawlessx.repl.co/api/manhua/1
