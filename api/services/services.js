@@ -108,7 +108,7 @@ exports.get_hot_manga_update = async (req, res) => {
             })
         });
 
-        myCache.set('/api/hot_manga_update/', JSON.stringify(obj), 300);
+        myCache.set('/api/hot_manga_update/', obj, 300);
         res.status(200).json(obj);
 
     } catch (e) {
@@ -132,7 +132,7 @@ exports.get_chapter = async (req, res) => {
         let imageList = await page.$$eval('#readerarea img[src]', imgs => imgs.map(img => img.getAttribute('src')));
 
         await browser.close();
-        myCache.set(chapter_endpoint, JSON.stringify(imageList), 6000);
+        myCache.set(chapter_endpoint, imageList, 6000);
         res.status(200).json(imageList);
 
     } catch (e) {
@@ -160,7 +160,7 @@ exports.get_all_genre = async (req, res) => {
             });
         })
 
-        myCache.set('/api/genre/all', JSON.stringify(listAllGenre),6000);
+        myCache.set('/api/genre/all', listAllGenre,6000);
         res.status(200).json(listAllGenre);
 
     } catch (e) {
@@ -233,7 +233,7 @@ exports.get_latest_update = async (req, res) => {
 
         obj.latestUpdateList = latestUpdateList;
 
-        myCache.set('/api/latest_update/', JSON.stringify(obj), 300);
+        myCache.set('/api/latest_update/' + page_number, obj, 300);
         res.status(200).json(obj);
 
     } catch (e) {
@@ -283,7 +283,7 @@ exports.get_genre = async (req, res) => {
         });
         obj.result = result;
 
-        myCache.set('genre_endpoint + page_number', JSON.stringify(obj), 6000)
+        myCache.set(genre_endpoint + page_number, obj, 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -319,7 +319,7 @@ exports.get_search_manga = async (req, res) => {
             })
         });
 
-        myCache.set('search: ' + query, JSON.stringify(obj), 6000)
+        myCache.set('search: ' + query, obj, 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -367,7 +367,7 @@ exports.get_all_manga = async (req, res) => {
 
         obj.result = result;
 
-        myCache.set('manga/' + page_number, JSON.stringify(obj), 6000)
+        myCache.set('manga/' + page_number, obj, 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -414,7 +414,7 @@ exports.get_all_manhwa = async (req, res) => {
 
         obj.result = result;
 
-        myCache.set('manhwa/' + page_number, JSON.stringify(obj), 6000)
+        myCache.set('manhwa/' + page_number, obj, 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -461,7 +461,7 @@ exports.get_all_manhua = async (req, res) => {
 
         obj.result = result;
 
-        myCache.set('manhua/' + page_number, JSON.stringify(obj), 6000)
+        myCache.set('manhua/' + page_number, obj, 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -483,7 +483,7 @@ exports.get_best_series = async (req, res) => {
                 });
             }
 
-            myCache.set('best-series', JSON.stringify(obj), 6000);
+            myCache.set('best-series', obj, 6000);
             res.status(200).json(obj);
         })
 
