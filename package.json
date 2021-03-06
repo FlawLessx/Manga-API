@@ -29,7 +29,7 @@
     "marked": "^1.1.1",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
-    "redis": "^3.0.2",
+    "node-cache": "^5.1.2",
     "url": "^0.11.0"
   },
   "nodemonConfig": {

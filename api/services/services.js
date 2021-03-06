@@ -3,10 +3,8 @@
 const baseUrl = require('../../constant/base_url');
 const cheerio = require("cheerio");
 const axios = require("axios");
-const redis = require("redis");
-const tr = require('tor-request');
 const puppeteer = require('puppeteer');
-const client = redis.createClient();
+const myCache = require("../../constant/cache")
 exports.api = (req, res) => {
     try {
         const obj = {
@@ -15,7 +13,8 @@ exports.api = (req, res) => {
             documentation: "Check documentation on /api/documentation"
         }
 
-        client.setex('/api/', 3600, JSON.stringify(obj));
+        myCache.set('/api/', obj, 10000);
+
         res.status(200).json(obj);
     } catch (e) {
         res.status(404).json({
@@ -74,8 +73,9 @@ exports.get_manga_detail = async (req, res) => {
         obj.genreList = genreList;
         obj.chapterList = chapterList;
 
+        myCache.set(manga_endpoint, obj, 300);
         res.status(200).json(obj);
-        client.setex(manga_endpoint, 300, JSON.stringify(obj));
+
 
     } catch (e) {
         res.status(404).json({
@@ -108,7 +108,7 @@ exports.get_hot_manga_update = async (req, res) => {
             })
         });
 
-        client.setex('/api/hot_manga_update/', 300, JSON.stringify(obj));
+        myCache.set('/api/hot_manga_update/', JSON.stringify(obj), 300);
         res.status(200).json(obj);
 
     } catch (e) {
@@ -131,8 +131,8 @@ exports.get_chapter = async (req, res) => {
 
         let imageList = await page.$$eval('#readerarea img[src]', imgs => imgs.map(img => img.getAttribute('src')));
 
-        client.setex(chapter_endpoint, 6000, JSON.stringify(imageList));
         await browser.close();
+        myCache.set(chapter_endpoint, JSON.stringify(imageList), 6000);
         res.status(200).json(imageList);
 
     } catch (e) {
@@ -160,7 +160,7 @@ exports.get_all_genre = async (req, res) => {
             });
         })
 
-        client.setex('/api/genre/all', 6000, JSON.stringify(listAllGenre))
+        myCache.set('/api/genre/all', JSON.stringify(listAllGenre),6000);
         res.status(200).json(listAllGenre);
 
     } catch (e) {
@@ -233,7 +233,7 @@ exports.get_latest_update = async (req, res) => {
 
         obj.latestUpdateList = latestUpdateList;
 
-        //client.setex('/api/latest_update/' + page_number, 300, JSON.stringify(obj));
+        myCache.set('/api/latest_update/', JSON.stringify(obj), 300);
         res.status(200).json(obj);
 
     } catch (e) {
@@ -283,7 +283,7 @@ exports.get_genre = async (req, res) => {
         });
         obj.result = result;
 
-        client.setex(genre_endpoint + page_number, 6000, JSON.stringify(obj));
+        myCache.set('genre_endpoint + page_number', JSON.stringify(obj), 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -319,7 +319,7 @@ exports.get_search_manga = async (req, res) => {
             })
         });
 
-        client.setex('search: ' + query, 6000, JSON.stringify(obj));
+        myCache.set('search: ' + query, JSON.stringify(obj), 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -367,7 +367,7 @@ exports.get_all_manga = async (req, res) => {
 
         obj.result = result;
 
-        client.setex('manga/' + page_number, 6000, JSON.stringify(obj));
+        myCache.set('manga/' + page_number, JSON.stringify(obj), 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -414,7 +414,7 @@ exports.get_all_manhwa = async (req, res) => {
 
         obj.result = result;
 
-        client.setex('manhwa/' + page_number, 6000, JSON.stringify(obj));
+        myCache.set('manhwa/' + page_number, JSON.stringify(obj), 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -461,7 +461,7 @@ exports.get_all_manhua = async (req, res) => {
 
         obj.result = result;
 
-        client.setex('manhua/' + page_number, 6000, JSON.stringify(obj));
+        myCache.set('manhua/' + page_number, JSON.stringify(obj), 6000)
         res.status(200).json(obj);
 
     } catch (e) {
@@ -482,7 +482,8 @@ exports.get_best_series = async (req, res) => {
                     error_message: err.message
                 });
             }
-            client.setex('best-series', 6000, JSON.stringify(obj));
+
+            myCache.set('best-series', JSON.stringify(obj), 6000);
             res.status(200).json(obj);
         })
 

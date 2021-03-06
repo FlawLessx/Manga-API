@@ -1,7 +1,7 @@
 // Get Hot Manga Update
 GET http://localhost:3000/api/manga/detail/raid/
 ###
-GET http://localhost:3000/
+GET http://localhost:3000/api/
 ###
 GET http://localhost:3000/api/hot_manga_update/
 ### 
